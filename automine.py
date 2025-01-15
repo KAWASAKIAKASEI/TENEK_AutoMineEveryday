@@ -11,17 +11,29 @@ admin = content['admin']
 passwd = content['passwd']
 driver = webdriver.Edge() 
 driver.get('https://tenek.vip/#/') 
-mail_adress = WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="app"]/div[1]/div[2]/div/div[2]/div/form/div[1]/div/input')))
-mail_adress_input = admin
-mail_adress.send_keys(mail_adress_input)
-password = WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="app"]/div[1]/div[2]/div/div[2]/div/form/div[2]/div/input')))
-password_input = passwd
-password.send_keys(password_input)
-login = WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/div[1]/div[2]/div/div[2]/div/div[2]/a')))
-login.click()
+driver.maximize_window()
 try:
-    mine = WebDriverWait(driver,1800).until(EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/div[1]/div[2]/div[2]/div[2]/div[2]/div[3]/a/div')))
+    mail_adress = WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="app"]/div[1]/div[2]/div/div[2]/div/form/div[1]/div/input')))
+    mail_adress_input = admin
+    mail_adress.send_keys(mail_adress_input)
+    password = WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="app"]/div[1]/div[2]/div/div[2]/div/form/div[2]/div/input')))
+    password_input = passwd
+    password.send_keys(password_input)
+    login = WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/div[1]/div[2]/div/div[2]/div/div[2]/a')))
+    login.click()
+except:
+    driver.refresh()
+try:
+    mine = WebDriverWait(driver,1800).until(EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/div[1]/div[2]/div[2]/div[2]/div[2]/div[3]/a')))
+    driver.execute_script("arguments[0].scrollIntoView();",mine)
     mine.click()
     time.sleep(3)
+except:
+    mine = WebDriverWait(driver,1800).until(EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/div[1]/div[2]/div[2]/div[2]/div[2]/div[2]/a')))
+    driver.execute_script("arguments[0].scrollIntoView();",mine)
+    mine.click()
+    time.sleep(3)
+    
 finally:
     driver.quit()
+#/html/body/div[7]/div[2]/button[2]/div
